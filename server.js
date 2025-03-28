@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
-  secure: false, // false for TLS, true for SSL
+  secure: true,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
@@ -26,7 +26,6 @@ const transporter = nodemailer.createTransport({
 app.post("/send-email", async (req, res) => {
   try {
     const { to, subject, message } = req.body;
-    console.log(req.body)
 
     if (!to || !subject || !message) {
       return res.status(400).json({ error: "Missing required fields" });
