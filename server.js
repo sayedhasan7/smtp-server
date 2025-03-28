@@ -15,10 +15,14 @@ app.use(bodyParser.json());
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: process.env.SMTP_PORT,
-  secure: true,
+  secure: false, // ✅ "false" for 587 (STARTTLS)
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    user: process.env.SMTP_USER, // Your Gmail
+    pass: process.env.SMTP_PASS, // Your App Password
+  },
+  tls: {
+    ciphers: "SSLv3",
+    rejectUnauthorized: false, // (Optional) Accept self-signed certs
   },
 });
 
